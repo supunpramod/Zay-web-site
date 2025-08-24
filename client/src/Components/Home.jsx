@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight ,faArrowLeft} from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -169,15 +173,15 @@ const Home = () => {
 
           <button
             onClick={prevSlide}
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 p-3 text-white bg-green-600 hover:bg-green-700 rounded-full shadow-md transition-colors duration-300"
+            className="absolute left-4 top-1/2 transform -translate-y-1/2 p-3 text-white bg-green-600 hover:bg-green-700 rounded-xl shadow-md transition-colors duration-300"
           >
-            ◀
+            <FontAwesomeIcon icon={faArrowLeft}  className="size-4" />
           </button>
           <button
             onClick={nextSlide}
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 text-white bg-green-600 hover:bg-green-700 rounded-full shadow-md transition-colors duration-300"
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 text-white bg-green-600 hover:bg-green-700 rounded-xl shadow-md transition-colors duration-300"
           >
-            ▶
+            <FontAwesomeIcon icon={faArrowRight} className="size-4" />
           </button>
         </div>
       </div>

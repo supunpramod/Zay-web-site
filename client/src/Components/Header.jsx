@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaEnvelope, FaPhone, FaFacebookF, FaInstagram, FaTwitter, FaLinkedin, FaSearch, FaCartArrowDown, FaUser } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -7,7 +8,7 @@ const Header = () => {
   return (
     <>
       {/* Top Nav */}
-      <nav className="hidden lg:block bg-gray-900 text-white py-2">
+      <nav className=" hidden lg:block bg-gray-900 text-white py-2  sticky top-0 z-50 ">
         <div className="max-w-screen-xl mx-auto flex justify-between items-center px-12">
 
         {/* <div className="container mx-auto flex justify-between items-center px-12"> */}
@@ -44,8 +45,8 @@ const Header = () => {
       </nav>
 
       {/* Main Navbar */}
-      <nav className="bg-white shadow">
-        <div className="max-w-screen-xl mx-auto flex justify-between items-center px-12 py-6">
+      <nav className="bg-white shadow sticky top-0 z-50 ">
+        <div className="max-w-screen-xl mx-auto flex justify-between items-center px-12 py-6 ">
           {/* Logo */}
           <a href="index.html" className="text-green-600 text-2xl font-bold">
             Zay
@@ -88,8 +89,8 @@ const Header = () => {
             } lg:flex lg:items-center lg:space-x-8`}
           >
             <ul className="flex flex-col lg:flex-row lg:space-x-8 text-gray-700 font-medium ">
-              <li><a href="index.html" className="hover:text-green-600">Home</a></li>
-              <li><a href="about.html" className="hover:text-green-600">About</a></li>
+              <li><a href="index.html" className="hover:text-green-600"><Link to="/">Home</Link></a></li>
+              <li><a href="about.html" className="hover:text-green-600"><Link to="/about">About</Link></a></li>
               <li><a href="shop.html" className="hover:text-green-600">Shop</a></li>
               <li><a href="contact.html" className="hover:text-green-600">Contact</a></li>
             </ul>
