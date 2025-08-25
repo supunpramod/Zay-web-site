@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight ,faArrowLeft} from "@fortawesome/free-solid-svg-icons";
+
+import {  FaChevronLeft, FaChevronRight } from "react-icons/fa";
+
+
 import { Link } from "react-router-dom";
 
 
@@ -175,13 +177,13 @@ const Home = () => {
             onClick={prevSlide}
             className="absolute left-4 top-1/2 transform -translate-y-1/2 p-3 text-white bg-green-600 hover:bg-green-700 rounded-xl shadow-md transition-colors duration-300"
           >
-            <FontAwesomeIcon icon={faArrowLeft}  className="size-4" />
+            <FaChevronLeft />
           </button>
           <button
             onClick={nextSlide}
             className="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 text-white bg-green-600 hover:bg-green-700 rounded-xl shadow-md transition-colors duration-300"
           >
-            <FontAwesomeIcon icon={faArrowRight} className="size-4" />
+            <FaChevronRight />
           </button>
         </div>
       </div>
@@ -331,10 +333,10 @@ const Home = () => {
       </section>
 
       {/* Open Modal Button */}
-      <div className="fixed bottom-6 right-6 z-40">
+      {/* <div className="fixed bottom-6 right-6 z-40">
         <button
           onClick={() => setShowModal(true)}
-          className="bg-green-600 hover:bg-green-700 text-white p-4 rounded-full shadow-lg transition-all duration-300 transform hover:scale-110 flex items-center justify-center"
+          className="bg-blue-600 hover:bg-green-700 text-white p-4 rounded-full shadow-lg transition-all duration-300 transform hover:scale-110 flex items-center justify-center"
           aria-label="Search"
         >
           <svg
@@ -351,7 +353,7 @@ const Home = () => {
             />
           </svg>
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };

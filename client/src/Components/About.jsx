@@ -23,8 +23,8 @@ export default function About() {
   return (
     <div>
       {/* About Section */}
-      <section className="bg-green-600 py-10">
-        <div className="container mx-auto">
+      <section className="bg-green-600 py-10 px-12">
+        <div className="container mx-auto px-12">
           <div className="flex flex-col md:flex-row items-center py-5">
             <div className="md:w-2/3 text-white">
               <h1 className="text-4xl font-bold mb-4">About Us</h1>
@@ -42,8 +42,8 @@ export default function About() {
       </section>
 
       {/* Services Section */}
-      <section className="container mx-auto py-10">
-        <div className="text-center mb-10">
+      <section className="container mx-auto py-10 px-12">
+        <div className="text-center mb-10 px-12">
           <h1 className="text-3xl font-bold mb-4">Our Services</h1>
           <p className="text-gray-600">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod

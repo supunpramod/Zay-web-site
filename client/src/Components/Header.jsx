@@ -45,7 +45,7 @@ const Header = () => {
       </nav>
 
       {/* Main Navbar */}
-      <nav className="bg-white shadow sticky top-0 z-50 ">
+      <nav className=" w-full bg-white shadow sticky top-0 z-50 ">
         <div className="max-w-screen-xl mx-auto flex justify-between items-center px-12 py-6 ">
           {/* Logo */}
           <a href="index.html" className="text-green-600 text-2xl font-bold">
