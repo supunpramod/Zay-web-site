@@ -23,7 +23,7 @@ export default function Shop() {
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + brands.length) % brands.length);
 
   return (
-    <div className="container mx-auto py-8">
+    <div className="container mx-auto py-8 px-12">
       {/* Categories */}
       <div className="grid lg:grid-cols-4 gap-8">
         <div>

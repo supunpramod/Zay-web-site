@@ -91,7 +91,7 @@ const Header = () => {
             <ul className="flex flex-col lg:flex-row lg:space-x-8 text-gray-700 font-medium ">
               <li><a href="index.html" className="hover:text-green-600"><Link to="/">Home</Link></a></li>
               <li><a href="about.html" className="hover:text-green-600"><Link to="/about">About</Link></a></li>
-              <li><a href="shop.html" className="hover:text-green-600">Shop</a></li>
+              <li><a href="shop.html" className="hover:text-green-600"><Link to="/shop">Shop</Link></a></li>
               <li><a href="contact.html" className="hover:text-green-600"><Link to="/contact">Contact</Link></a></li>
             </ul>
 
