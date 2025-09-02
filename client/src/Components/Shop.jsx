@@ -116,6 +116,11 @@ export default function Shop() {
         <div className="flex items-center justify-center gap-6">
           <button onClick={prevSlide}><FaChevronLeft size={24} className="text-gray-600" /></button>
           <img src={brands[currentSlide]} alt="brand" className="h-16 object-contain" />
+          <img src={brands[(currentSlide + 1) % brands.length]} alt="brand" className="h-16 object-contain" />
+          <img src={brands[(currentSlide + 2) % brands.length]} alt="brand" className="h-16 object-contain" />
+          <img src={brands[(currentSlide + 3) % brands.length]} alt="brand" className="h-16 object-contain" />
+          <img src={brands[(currentSlide + 4) % brands.length]} alt="brand" className="h-16 object-contain" />
+
           <button onClick={nextSlide}><FaChevronRight size={24} className="text-gray-600" /></button>
         </div>
       </section>
