@@ -92,7 +92,7 @@ const Header = () => {
               <li><a href="index.html" className="hover:text-green-600"><Link to="/">Home</Link></a></li>
               <li><a href="about.html" className="hover:text-green-600"><Link to="/about">About</Link></a></li>
               <li><a href="shop.html" className="hover:text-green-600">Shop</a></li>
-              <li><a href="contact.html" className="hover:text-green-600">Contact</a></li>
+              <li><a href="contact.html" className="hover:text-green-600"><Link to="/contact">Contact</Link></a></li>
             </ul>
 
             {/* Right Side Icons */}
