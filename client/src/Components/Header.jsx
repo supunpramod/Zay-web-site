@@ -9,7 +9,7 @@ const Header = () => {
     <>
       {/* Top Nav */}
       <nav className=" hidden lg:block bg-gray-900 text-white py-2  sticky top-0 z-50 ">
-        <div className="max-w-screen-xl mx-auto flex justify-between items-center px-12">
+        <div className="max-w-screen-xl mx-auto flex justify-between items-center px-12 ">
 
         {/* <div className="container mx-auto flex justify-between items-center px-12"> */}
 

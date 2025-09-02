@@ -121,8 +121,8 @@ const Home = () => {
       )}
 
       {/* Hero Carousel */}
-      <div className="relative bg-gradient-to-r from-green-50 to-blue-50 py-12">
-        <div className="container mx-auto px-5">
+      <div className="relative bg-gradient-to-r from-green-50 to-blue-50 py-12 px-12">
+        <div className="container mx-auto px-12">
           {slides.map((slide, index) => (
             <div
               key={index}
