@@ -130,14 +130,14 @@ export default function Footer() {
       <div className="bg-black py-4">
         <div className="container mx-auto px-6 text-center text-gray-400 text-sm">
           <p>
-            &copy; 2021 Company Name | Designed by{" "}
+            &copy; 2025 MSP Software Solution | Designed by{" "}
             <a
               href="https://templatemo.com"
               target="_blank"
               rel="noreferrer"
               className="hover:text-green-400"
             >
-              TemplateMo
+              Supun Pramod
             </a>
           </p>
         </div>
