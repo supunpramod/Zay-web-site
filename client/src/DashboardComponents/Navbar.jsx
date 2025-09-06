@@ -13,8 +13,8 @@ const Navbar = ({ user, toggleSidebar }) => {
   };
 
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-20">
-      <div className="flex items-center justify-between px-6 py-4">
+    <header className="bg-green-200 shadow-sm sticky top-0 z-20">
+      <div className="flex items-center justify-between px-6 py-2">
         {/* Left section */}
         <div className="flex items-center">
           <button

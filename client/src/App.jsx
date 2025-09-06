@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
 import { AuthProvider } from './DashboardComponents/AuthContext';
 import Login from './DashboardComponents/Login';
+import Register from './DashboardComponents/Register.jsx';
 
 // Public Components
 import Home from './Components/Home';
@@ -63,9 +64,87 @@ function App() {
 
         {/* Login page (no layout) */}
         <Route path="/login" element={<Login />} />
+        
+        <Route path="/register" element={<Register />} />
+
       </Routes>
     </AuthProvider>
   );
 }
 
 export default App;
+
+
+
+
+// import React from 'react';
+// import { Routes, Route, Outlet } from 'react-router-dom';
+// import { AuthProvider } from './DashboardComponents/AuthContext';
+// import ProtectedRoute from './DashboardComponents/ProtectedRoute';
+// import Login from './DashboardComponents/Login';
+
+// // Public Components
+// import Home from './Components/Home';
+// import About from './Components/About';
+// import Contact from './Components/Contact';
+// import Shop from './Components/Shop';
+// import Footer from './Components/Footer.jsx';
+// import Header from './Components/Header.jsx';
+
+// // Protected Components
+// import Contactshow from './DashboardComponents/Contactshow';
+// import Dashboard from './DashboardComponents/Dashboard';
+// import Navbar from './DashboardComponents/Navbar';
+// import Sidebar from './DashboardComponents/Sidebar';
+
+// // Landing Layout (Header + Footer)
+// const LandingLayout = () => (
+//   <>
+//     <Header />
+//     <Outlet /> {/* Public pages */}
+//     <Footer />
+//   </>
+// );
+
+// // Dashboard Layout (Navbar + Sidebar)
+// const DashboardLayout = () => (
+//   <>
+//     <Navbar />
+//     <Outlet /> {/* Protected pages */}
+//     <Sidebar />
+//   </>
+// );
+
+// function App() {
+//   return (
+//     <AuthProvider>
+//       <Routes>
+//         {/* Public routes */}
+//         <Route element={<LandingLayout />}>
+//           <Route path="/" element={<Home />} />
+//           <Route path="/about" element={<About />} />
+//           <Route path="/contact" element={<Contact />} />
+//           <Route path="/shop" element={<Shop />} />
+//         </Route>
+
+//         {/* Protected routes with Dashboard layout */}
+//         <Route
+//           element={
+//             <ProtectedRoute>
+//               <DashboardLayout />
+//             </ProtectedRoute>
+//           }
+//         >
+//           <Route path="/dashboard" element={<Dashboard />} />
+//           <Route path="/contactshow" element={<Contactshow />} />
+//         </Route>
+
+//         {/* Login page (no layout) */}
+//         <Route path="/login" element={<Login />} />
+        
+//       </Routes>
+//     </AuthProvider>
+//   );
+// }
+
+// export default App;     :: protect eka ain karanna
