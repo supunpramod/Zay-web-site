@@ -1,9 +1,7 @@
 import React from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
 import { AuthProvider } from './DashboardComponents/AuthContext';
-import ProtectedRoute from './DashboardComponents/ProtectedRoute';
 import Login from './DashboardComponents/Login';
-
 
 // Public Components
 import Home from './Components/Home';
@@ -13,48 +11,58 @@ import Shop from './Components/Shop';
 import Footer from './Components/Footer.jsx';
 import Header from './Components/Header.jsx';
 
-// Protected Components
-import Dashboard from './DashboardComponents/Dashboard';
+// Dashboard Components
 import Contactshow from './DashboardComponents/Contactshow';
+import Dashboard from './DashboardComponents/Dashboard';
+import Navbar from './DashboardComponents/Navbar';
+import Sidebar from './DashboardComponents/Sidebar.jsx';
 
 // Landing Layout (Header + Footer)
 const LandingLayout = () => (
   <>
     <Header />
-    <Outlet /> {/* Page content render වෙනවා */}
+    <Outlet /> {/* Public pages */}
     <Footer />
   </>
 );
+
+// Dashboard Layout (Navbar + Sidebar)
+const DashboardLayout = () => (
+  <div className="flex h-screen">
+    {/* Sidebar */}
+    <Sidebar />
+
+    {/* Main content */}
+    <div className="flex-1 flex flex-col">
+      <Navbar />
+      <div className="flex-1 overflow-auto p-5">
+        <Outlet /> {/* Dashboard pages */}
+      </div>
+    </div>
+  </div>
+);
+
 
 function App() {
   return (
     <AuthProvider>
       <Routes>
-        {/* Landing Pages with Header + Footer */}
+        {/* Public routes */}
         <Route element={<LandingLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/shop" element={<Shop />} />
-          
         </Route>
 
-        {/* Login Page (no Header/Footer) */}
+        {/* Dashboard routes with layout */}
+        <Route element={<DashboardLayout />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/contactshow" element={<Contactshow />} />
+        </Route>
+
+        {/* Login page (no layout) */}
         <Route path="/login" element={<Login />} />
-
-        <Route path="/dashboard" element={<Dashboard />} />
-
-        <Route path="/contactshow" element={<Contactshow />} />
-
-        {/* Dashboard Protected Route (no Header/Footer) */}
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
       </Routes>
     </AuthProvider>
   );
