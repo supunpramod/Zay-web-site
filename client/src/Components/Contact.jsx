@@ -6,6 +6,9 @@ import { FaSearch } from "react-icons/fa";
 function MapSection() {
   const position = [-23.013104, -43.394365];
 
+
+  
+
   return (
     <div className="w-full h-[300px] z-0">
       <MapContainer
@@ -30,6 +33,46 @@ function MapSection() {
 
 export default function Contact() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+
+  
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+
+  const [status, setStatus] = useState("");
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus("Sending...");
+
+    try {
+      const res = await fetch("http://localhost:3000/api/contacts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setStatus("✅ Message sent successfully!");
+        setFormData({ name: "", email: "", subject: "", message: "" }); // clear form
+      } else {
+        setStatus("❌ " + data.error);
+      }
+    } catch (err) {
+      setStatus("❌ Something went wrong!");
+    }
+  };
+
+
 
   return (
     <div>
@@ -79,59 +122,72 @@ export default function Contact() {
       <MapSection />
 
       {/* Contact Form */}
-      <div className="container mx-auto py-12 px-6">
-        <form className="max-w-2xl mx-auto bg-white p-8 shadow-md rounded-lg">
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <label className="block text-sm font-medium mb-1">Name</label>
-              <input
-                type="text"
-                name="name"
-                placeholder="Name"
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">Email</label>
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-              />
-            </div>
-          </div>
-
-          <div className="mt-6">
-            <label className="block text-sm font-medium mb-1">Subject</label>
+     <div className="container mx-auto py-12 px-6">
+      <form
+        onSubmit={handleSubmit}
+        className="max-w-2xl mx-auto bg-white p-8 shadow-md rounded-lg"
+      >
+        <div className="grid md:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-sm font-medium mb-1">Name</label>
             <input
               type="text"
-              name="subject"
-              placeholder="Subject"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Name"
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
             />
           </div>
-
-          <div className="mt-6">
-            <label className="block text-sm font-medium mb-1">Message</label>
-            <textarea
-              name="message"
-              rows="6"
-              placeholder="Message"
+          <div>
+            <label className="block text-sm font-medium mb-1">Email</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Email"
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
             />
           </div>
+        </div>
 
-          <div className="text-right mt-6">
-            <button
-              type="submit"
-              className="bg-green-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-green-500 transition"
-            >
-              Let’s Talk
-            </button>
-          </div>
-        </form>
-      </div>
+        <div className="mt-6">
+          <label className="block text-sm font-medium mb-1">Subject</label>
+          <input
+            type="text"
+            name="subject"
+            value={formData.subject}
+            onChange={handleChange}
+            placeholder="Subject"
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+          />
+        </div>
+
+        <div className="mt-6">
+          <label className="block text-sm font-medium mb-1">Message</label>
+          <textarea
+            name="message"
+            rows="6"
+            value={formData.message}
+            onChange={handleChange}
+            placeholder="Message"
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+          />
+        </div>
+
+        <div className="text-right mt-6">
+          <button
+            type="submit"
+            className="bg-green-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-green-500 transition"
+          >
+            Let’s Talk
+          </button>
+        </div>
+
+        {status && <p className="mt-4 text-center text-gray-700">{status}</p>}
+      </form>
+    </div>
 
       {/* Floating Search Button */}
       <div className="fixed bottom-6 right-6">

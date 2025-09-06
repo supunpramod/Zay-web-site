@@ -4,6 +4,7 @@ import { AuthProvider } from './DashboardComponents/AuthContext';
 import ProtectedRoute from './DashboardComponents/ProtectedRoute';
 import Login from './DashboardComponents/Login';
 
+
 // Public Components
 import Home from './Components/Home';
 import About from './Components/About';
@@ -14,6 +15,7 @@ import Header from './Components/Header.jsx';
 
 // Protected Components
 import Dashboard from './DashboardComponents/Dashboard';
+import Contactshow from './DashboardComponents/Contactshow';
 
 // Landing Layout (Header + Footer)
 const LandingLayout = () => (
@@ -34,10 +36,15 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/shop" element={<Shop />} />
+          
         </Route>
 
         {/* Login Page (no Header/Footer) */}
         <Route path="/login" element={<Login />} />
+
+        <Route path="/dashboard" element={<Dashboard />} />
+
+        <Route path="/contactshow" element={<Contactshow />} />
 
         {/* Dashboard Protected Route (no Header/Footer) */}
         <Route
