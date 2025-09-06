@@ -2,6 +2,8 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+
 
 
 const app = express();
@@ -129,68 +131,34 @@ app.delete("/api/contacts/:id", async (req, res) => {
 
 
 
-//register admin
-
-const userSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: [true, "Full name is required"],
-      trim: true,
-      minlength: 3
-    },
-    email: {
-      type: String,
-      required: [true, "Email is required"],
-      unique: true,
-      lowercase: true,
-      match: [/^\S+@\S+\.\S+$/, "Please enter a valid email"]
-    },
-    password: {
-      type: String,
-      required: [true, "Password is required"],
-      minlength: 6
-    },
-    isVerified: {
-      type: Boolean,
-      default: false
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now
-    }
-  },
-  { timestamps: true }
-);
+// Schema & Model
+const userSchema = new mongoose.Schema({
+  name: { type: String, required: [true, "Full name is required"], trim: true, minlength: 3 },
+  email: { type: String, required: [true, "Email is required"], unique: true, lowercase: true, match: [/^\S+@\S+\.\S+$/, "Please enter a valid email"] },
+  password: { type: String, required: [true, "Password is required"], minlength: 6 },
+  isVerified: { type: Boolean, default: false },
+  createdAt: { type: Date, default: Date.now }
+}, { timestamps: true });
 
 const Admin = mongoose.model("Admin", userSchema);
 
-
-
+// Register
 app.post("/api/register", async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    // 1. Check if admin already exists
     const existingAdmin = await Admin.findOne({ email });
     if (existingAdmin) {
       return res.status(400).json({ message: "Email already registered" });
     }
 
-    // 2. Hash password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // 3. Create admin
-    const newAdmin = new Admin({
-      name,
-      email,
-      password: hashedPassword,
-    });
-
+    const newAdmin = new Admin({ name, email, password: hashedPassword });
     await newAdmin.save();
 
-    res.status(201).json({ 
+    res.status(201).json({
       message: "Admin registered successfully",
       admin: { id: newAdmin._id, name: newAdmin.name, email: newAdmin.email }
     });
@@ -200,11 +168,33 @@ app.post("/api/register", async (req, res) => {
   }
 });
 
+// Login
+app.post("/api/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const admin = await Admin.findOne({ email });
 
+    if (!admin) return res.status(400).json({ message: "Invalid email or password" });
 
+    const isMatch = await bcrypt.compare(password, admin.password);
+    if (!isMatch) return res.status(400).json({ message: "Invalid email or password" });
 
+    const token = jwt.sign(
+      { id: admin._id, email: admin.email },
+      process.env.JWT_SECRET || "yourSecretKey",
+      { expiresIn: "1h" }
+    );
 
-
+    res.status(200).json({
+      message: "Login successful",
+      token,
+      admin: { id: admin._id, name: admin.name, email: admin.email }
+    });
+  } catch (error) {
+    console.error("Login error:", error.message);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
 
 
