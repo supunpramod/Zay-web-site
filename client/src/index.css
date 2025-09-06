@@ -3,3 +3,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-md font-medium transition-colors duration-300;
+  }
+  .btn-primary {
+    @apply bg-primary text-white hover:bg-indigo-700;
+  }
+  .btn-secondary {
+    @apply bg-secondary text-white hover:bg-indigo-600;
+  }
+  .btn-outline {
+    @apply border-2 border-primary text-primary hover:bg-primary hover:text-white;
+  }
+}

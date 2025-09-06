@@ -88,12 +88,13 @@ const Header = () => {
               isOpen ? "block" : "hidden"
             } lg:flex lg:items-center lg:space-x-8`}
           >
-            <ul className="flex flex-col lg:flex-row lg:space-x-8 text-gray-700 font-medium ">
-              <li><a href="index.html" className="hover:text-green-600"><Link to="/">Home</Link></a></li>
-              <li><a href="about.html" className="hover:text-green-600"><Link to="/about">About</Link></a></li>
-              <li><a href="shop.html" className="hover:text-green-600"><Link to="/shop">Shop</Link></a></li>
-              <li><a href="contact.html" className="hover:text-green-600"><Link to="/contact">Contact</Link></a></li>
-            </ul>
+   <ul className="flex flex-col lg:flex-row lg:space-x-8 text-gray-700 font-medium">
+  <li><Link to="/" className="hover:text-green-600">Home</Link></li>
+  <li><Link to="/about" className="hover:text-green-600">About</Link></li>
+  <li><Link to="/shop" className="hover:text-green-600">Shop</Link></li>
+  <li><Link to="/contact" className="hover:text-green-600">Contact</Link></li>
+</ul>
+
 
             {/* Right Side Icons */}
             <div className="flex items-center space-x-4 mt-3 lg:mt-0 lg:ml-6">
