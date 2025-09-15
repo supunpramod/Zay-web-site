@@ -5,13 +5,23 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import multer from "multer";
 import path from "path";
+import { fileURLToPath } from 'url';
 
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
-app.use("/uploads", express.static("uploads")); 
+
+// Create __dirname in ES Module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Serve static files from 'uploads' folder
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+
+// app.use("/uploads", express.static("uploads")); 
 
 const PORT = process.env.PORT || 3000;
 
