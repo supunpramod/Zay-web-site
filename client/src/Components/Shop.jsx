@@ -1,23 +1,31 @@
 "use client";
-import { useState } from "react";
-import { FaSearch, FaChevronLeft, FaChevronRight, FaHeart, FaEye, FaCartPlus, FaStar } from "react-icons/fa";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { FaChevronLeft, FaChevronRight, FaHeart, FaEye, FaCartPlus, FaStar } from "react-icons/fa";
 
-const products = [
-  { id: 1, name: "Oupidatat non", price: 250, img: "/assets/img/shop_01.jpg" },
-  { id: 2, name: "Oupidatat non", price: 250, img: "/assets/img/shop_02.jpg" },
-  { id: 3, name: "Oupidatat non", price: 250, img: "/assets/img/shop_03.jpg" },
-  { id: 4, name: "Oupidatat non", price: 250, img: "/assets/img/shop_04.jpg" },
-  { id: 5, name: "Oupidatat non", price: 250, img: "/assets/img/shop_05.jpg" },
-  { id: 6, name: "Oupidatat non", price: 250, img: "/assets/img/shop_06.jpg" },
-  { id: 7, name: "Oupidatat non", price: 250, img: "/assets/img/shop_07.jpg" },
-  { id: 8, name: "Oupidatat non", price: 250, img: "/assets/img/shop_08.jpg" },
-  { id: 9, name: "Oupidatat non", price: 250, img: "/assets/img/shop_09.jpg" },
+const brands = [
+  "/assets/img/brand_01.png",
+  "/assets/img/brand_02.png",
+  "/assets/img/brand_03.png",
+  "/assets/img/brand_04.png",
 ];
-
-const brands = ["/assets/img/brand_01.png", "/assets/img/brand_02.png", "/assets/img/brand_03.png", "/assets/img/brand_04.png"];
 
 export default function Shop() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [products, setProducts] = useState([]);
+
+  // Fetch products from backend
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await axios.get("http://localhost:3000/api/products"); // backend URL
+        setProducts(res.data);
+      } catch (err) {
+        console.error("Error fetching products:", err.message);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % brands.length);
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + brands.length) % brands.length);
@@ -79,8 +87,12 @@ export default function Shop() {
           {/* Products Grid */}
           <div className="grid md:grid-cols-3 gap-6">
             {products.map((product) => (
-              <div key={product.id} className="bg-white shadow rounded-lg overflow-hidden group relative">
-                <img src={product.img} alt={product.name} className="w-full h-56 object-cover" />
+              <div key={product._id} className="bg-white shadow rounded-lg overflow-hidden group relative">
+                <img
+                  src={`http://localhost:5000/uploads/${product.img}`}
+                  alt={product.name}
+                  className="w-full h-56 object-cover"
+                />
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex justify-center items-center gap-3 transition">
                   <button className="p-2 bg-green-600 text-white rounded-full"><FaHeart /></button>
                   <button className="p-2 bg-green-600 text-white rounded-full"><FaEye /></button>
@@ -97,7 +109,7 @@ export default function Shop() {
             ))}
           </div>
 
-          {/* Pagination */}
+          {/* Pagination (dummy for now) */}
           <div className="flex justify-end mt-8 space-x-2">
             <button className="px-4 py-2 border rounded-md bg-green-600 text-white">1</button>
             <button className="px-4 py-2 border rounded-md">2</button>
@@ -120,7 +132,6 @@ export default function Shop() {
           <img src={brands[(currentSlide + 2) % brands.length]} alt="brand" className="h-16 object-contain" />
           <img src={brands[(currentSlide + 3) % brands.length]} alt="brand" className="h-16 object-contain" />
           <img src={brands[(currentSlide + 4) % brands.length]} alt="brand" className="h-16 object-contain" />
-
           <button onClick={nextSlide}><FaChevronRight size={24} className="text-gray-600" /></button>
         </div>
       </section>

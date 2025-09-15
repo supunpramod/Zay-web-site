@@ -225,20 +225,29 @@ const productSchema = new mongoose.Schema({
 const Product = mongoose.model("Product", productSchema);
 
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, "uploads/"),
-  filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname)),
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, "uploads/")); // uploads folder correct path
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname)); // unique filename
+  },
 });
 
+// File filter
 const fileFilter = (req, file, cb) => {
   const allowed = /jpeg|jpg|png|gif/;
   const ext = allowed.test(path.extname(file.originalname).toLowerCase());
   const mime = allowed.test(file.mimetype);
-  if (ext && mime) cb(null, true);
-  else cb(new Error("Only images are allowed!"));
+
+  if (ext && mime) {
+    cb(null, true);
+  } else {
+    cb(new Error("Only images are allowed!"), false);
+  }
 };
 
+// Multer upload middleware
 const upload = multer({ storage, fileFilter });
-
 // ------------------ Routes ------------------
 
 // Create product
@@ -250,7 +259,7 @@ app.post("/api/products", upload.single("img"), async (req, res) => {
       price,
       category,
       rating: rating || 0,
-      img: req.file ? req.file.filename : null,
+      img: req.file ? `/uploads/${req.file.filename}` : null, // <-- full path
     });
     await product.save();
     res.status(201).json({ message: "Product created", product });
