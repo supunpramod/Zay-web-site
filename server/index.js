@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import multer from "multer";
 
 
 
@@ -10,6 +11,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
+app.use("/uploads", express.static("uploads")); 
 
 const PORT = process.env.PORT || 3000;
 
@@ -195,6 +197,103 @@ app.post("/api/login", async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
+
+
+
+
+//shop
+
+const productSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  price: { type: Number, required: true },
+  img: { type: String }, // Multer will save image filename or path here
+  category: { type: String, enum: ["Men", "Women", "Bag", "Sweater", "Sunglass"], required: true },
+  rating: { type: Number, default: 0 },
+  createdAt: { type: Date, default: Date.now },
+});
+
+const Product = mongoose.model("Product", productSchema);
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, "uploads/"),
+  filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname)),
+});
+
+const fileFilter = (req, file, cb) => {
+  const allowed = /jpeg|jpg|png|gif/;
+  const ext = allowed.test(path.extname(file.originalname).toLowerCase());
+  const mime = allowed.test(file.mimetype);
+  if (ext && mime) cb(null, true);
+  else cb(new Error("Only images are allowed!"));
+};
+
+const upload = multer({ storage, fileFilter });
+
+// ------------------ Routes ------------------
+
+// Create product
+app.post("/api/products", upload.single("img"), async (req, res) => {
+  try {
+    const { name, price, category, rating } = req.body;
+    const product = new Product({
+      name,
+      price,
+      category,
+      rating: rating || 0,
+      img: req.file ? req.file.filename : null,
+    });
+    await product.save();
+    res.status(201).json({ message: "Product created", product });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Get all products
+app.get("/api/products", async (req, res) => {
+  try {
+    const products = await Product.find().sort({ createdAt: -1 });
+    res.json(products);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Get single product
+app.get("/api/products/:id", async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    if (!product) return res.status(404).json({ message: "Not found" });
+    res.json(product);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Update product
+app.put("/api/products/:id", upload.single("img"), async (req, res) => {
+  try {
+    const updateData = { ...req.body };
+    if (req.file) updateData.img = req.file.filename;
+    const updated = await Product.findByIdAndUpdate(req.params.id, updateData, { new: true });
+    if (!updated) return res.status(404).json({ message: "Not found" });
+    res.json(updated);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Delete product
+app.delete("/api/products/:id", async (req, res) => {
+  try {
+    const deleted = await Product.findByIdAndDelete(req.params.id);
+    if (!deleted) return res.status(404).json({ message: "Not found" });
+    res.json({ message: "Deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 
 
 
