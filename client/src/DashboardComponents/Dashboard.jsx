@@ -31,7 +31,9 @@ const Dashboard = () => {
     { title: 'Create Report', icon: <FaChartBar /> },
     { title: 'Upload Data', icon: <FaUpload /> },
     { title: 'Settings', icon: <FaCog /> },
-    { title: 'Contacts', icon: <FaComments /> }
+    { title: 'Contacts', icon: <FaComments /> },
+    { title: 'Shop Manage', icon: <FaComments /> }
+
   ];
 
   return (
@@ -126,6 +128,17 @@ const Dashboard = () => {
                         <div className="text-lg mr-3">{action.icon}</div>
                         <span className="font-medium text-gray-700 group-hover:text-indigo-700">{action.title}</span>
                       </Link>
+
+                    ) : action.title === 'Shop Manage' ? (
+                      <Link
+                        to="/shopmanage"
+                        key={index}
+                        className="flex items-center w-full p-3 bg-gray-50 rounded-lg hover:bg-indigo-50 transition-colors group"
+                      >
+                        <div className="text-lg mr-3">{action.icon}</div>
+                        <span className="font-medium text-gray-700 group-hover:text-indigo-700">{action.title}</span>
+                      </Link>
+
                     ) : (
                       <button
                         key={index}

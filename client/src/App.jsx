@@ -94,6 +94,7 @@ import Header from './Components/Header.jsx';
 
 // Protected Components
 import Contactshow from './DashboardComponents/Contactshow';
+import Shopmanage from './DashboardComponents/Shopmanage.jsx';
 import Dashboard from './DashboardComponents/Dashboard';
 import Navbar from './DashboardComponents/Navbar';
 import Sidebar from './DashboardComponents/Sidebar';
@@ -146,6 +147,7 @@ function App() {
         >
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/contactshow" element={<Contactshow />} />
+          <Route path="/shopmanage" element={<Shopmanage />} />
         </Route>
 
         {/* Login page (no layout) */}
