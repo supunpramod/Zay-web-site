@@ -97,7 +97,7 @@ import Contactshow from './DashboardComponents/Contactshow';
 import Shopmanage from './DashboardComponents/Shopmanage.jsx';
 import Dashboard from './DashboardComponents/Dashboard';
 import Navbar from './DashboardComponents/Navbar';
-import Sidebar from './DashboardComponents/Sidebar';
+import Sidebar from './DashboardComponents/Sidebar'; //sidebar
 
 // Landing Layout (Header + Footer)
 const LandingLayout = () => (
